@@ -8,6 +8,7 @@ TagManager:
   - BulletEnemi
   - BulletPlayer
   - LifeUp
+  - EndLevel
   layers:
   - Default
   - TransparentFX

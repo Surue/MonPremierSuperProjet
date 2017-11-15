@@ -92,14 +92,31 @@ public class PlayerController : MonoBehaviour {
             Destroy(collision.gameObject);
             gameManager.LifeUp();
         }
+
+        if(collision.tag == "EndLevel") {
+            gameManager.NextLevel();
+        }
     }
 
     private void Fire() {
         if (Time.realtimeSinceStartup - lastTimeFire > timeToFire) {
+            Vector3 positionDebugEnd = gunTransform.position + gunTransform.right;
+            Debug.DrawLine(gunTransform.position, positionDebugEnd, Color.red, 5);
             GameObject bullet = Instantiate(bulletPrefab, gunTransform.position, gunTransform.rotation);
             bullet.GetComponent<Rigidbody2D>().velocity = gunTransform.right * bulletVelocity;
             Destroy(bullet, 5);
             lastTimeFire = Time.realtimeSinceStartup;
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(positionRaycastJump.position, radiusRaycastJump);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(positionRaycastJump.position, radiusRaycastJump);
     }
 }
